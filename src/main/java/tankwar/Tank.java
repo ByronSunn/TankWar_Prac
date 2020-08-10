@@ -10,10 +10,19 @@ public class Tank {
     private int y;
 
     private Direction direction;
+    boolean enemy;
+
+    public Tank(int x, int y, boolean enemy, Direction direction) {
+        this.x = x;
+        this.y = y;
+        this.enemy = enemy;
+        this.direction = direction;
+    }
 
     public Tank(int x, int y, Direction direction) {
         this.x = x;
         this.y = y;
+        this.enemy = false;
         this.direction = direction;
     }
 
@@ -34,23 +43,24 @@ public class Tank {
     }
 
     Image getImage() {
+        String prefix = enemy? "e" : "";
         switch (direction) {
             case UP:
-                return new ImageIcon("assert/images/tankU.gif").getImage();
+                return new ImageIcon("assert/images/"+prefix+"tankU.gif").getImage();
             case DOWN:
-                return new ImageIcon("assert/images/tankD.gif").getImage();
+                return new ImageIcon("assert/images/"+prefix+"tankD.gif").getImage();
             case LEFT:
-                return new ImageIcon("assert/images/tankL.gif").getImage();
+                return new ImageIcon("assert/images/"+prefix+"tankL.gif").getImage();
             case RIGHT:
-                return new ImageIcon("assert/images/tankR.gif").getImage();
+                return new ImageIcon("assert/images/"+prefix+"tankR.gif").getImage();
             case UPLEFT:
-                return new ImageIcon("assert/images/tankLU.gif").getImage();
+                return new ImageIcon("assert/images/"+prefix+"tankLU.gif").getImage();
             case DOWNLEFT:
-                return new ImageIcon("assert/images/tankLD.gif").getImage();
+                return new ImageIcon("assert/images/"+prefix+"tankLD.gif").getImage();
             case UPRIGHT:
-                return new ImageIcon("assert/images/tankRU.gif").getImage();
+                return new ImageIcon("assert/images/"+prefix+"tankRU.gif").getImage();
             case DOWNRIGHT:
-                return new ImageIcon("assert/images/tankRD.gif").getImage();
+                return new ImageIcon("assert/images/"+prefix+"tankRD.gif").getImage();
         }
         return null;
     }
