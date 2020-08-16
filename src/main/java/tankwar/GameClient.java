@@ -1,5 +1,7 @@
 package tankwar;
 
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -10,11 +12,25 @@ import java.util.List;
 
 public class GameClient extends JComponent {
 
-    public Tank playerTank;
-    ArrayList<Tank> enemyList;
+    private static final GameClient INSTANCE = new GameClient();
+
+    public static GameClient getInstance(){
+        return INSTANCE;
+    }
+
+    private Tank playerTank;
+    private ArrayList<Tank> enemyList;
     private List<Wall> walls;
 
-    public GameClient(){
+    public List<Wall> getWalls() {
+        return walls;
+    }
+
+    public ArrayList<Tank> getEnemyList() {
+        return enemyList;
+    }
+
+    private GameClient(){
         this.playerTank = new Tank(400, 100, Direction.DOWN);
         this.enemyList = new ArrayList<Tank>(12);
         this.walls = Arrays.asList(

@@ -8,8 +8,10 @@ public class Wall {
     int y;
     boolean horizontal;
     private int bricks;
+    private final Image brickImage;
 
     public Wall(int x, int y, boolean horizontal, int bricks) {
+        this.brickImage = Tools.getImage("brick.png");
         this.x = x;
         this.y = y;
         this.horizontal = horizontal;
@@ -29,5 +31,11 @@ public class Wall {
                 g.drawImage(brickImage, x, y+i*brickImage.getHeight(null), null);
             }
         }
+    }
+
+    public Rectangle getRectangle(){
+        return horizontal?
+                new Rectangle(x,y,bricks*brickImage.getWidth(null),brickImage.getHeight(null)):
+                new Rectangle(x,y,brickImage.getWidth(null),bricks*brickImage.getHeight(null));
     }
 }

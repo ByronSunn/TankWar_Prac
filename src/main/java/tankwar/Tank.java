@@ -9,6 +9,7 @@ public class Tank {
     private int x;
     private int y;
 
+
     private Direction direction;
     boolean enemy;
 
@@ -120,6 +121,7 @@ public class Tank {
     }
 
     void move(){
+
         if(this.stopped)
             return;
         switch(this.direction){
@@ -153,11 +155,42 @@ public class Tank {
         }
     }
 
-    void draw(Graphics g){
-        this.determineDirection();
-        this.move();
-        g.drawImage(this.getImage(),this.x,this.y,null);
+    public Rectangle getRectangle(){
+        return new Rectangle(x,y,getImage().getWidth(null),getImage().getHeight(null));
     }
 
+
+    void draw(Graphics g) {
+        int prevx = x;
+        int prevy = y;
+        this.determineDirection();
+        this.move();
+
+        if (x < 0) x = 0;
+        else if (x > 800 - getImage().getWidth(null)) x = 800 - getImage().getWidth(null);
+        if (y < 0) y = 0;
+        else if (y > 600 - getImage().getHeight(null)) y = 600 - getImage().getHeight(null);
+
+
+        Rectangle rec = this.getRectangle();
+        for (Wall wall : GameClient.getInstance().getWalls()) {
+            if(rec.intersects(wall.getRectangle())){
+                x = prevx;
+                y = prevy;
+                break;
+            }
+        }
+
+        for(Tank tank : GameClient.getInstance().getEnemyList()){
+            if(rec.intersects(tank.getRectangle())){
+                x = prevx;
+                y = prevy;
+                break;
+            }
+        }
+
+
+        g.drawImage(this.getImage(), this.x, this.y, null);
+    }
 
 }
