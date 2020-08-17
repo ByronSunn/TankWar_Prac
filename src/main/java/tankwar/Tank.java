@@ -1,8 +1,12 @@
 package tankwar;
 
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 public class Tank {
 
@@ -82,7 +86,20 @@ public class Tank {
             case KeyEvent.VK_RIGHT:
                 right = true;
                 break;
+            case KeyEvent.VK_CONTROL:
+                fire();
+                break;
         }
+    }
+
+    private void fire() {
+        Missile missile = new Missile(x+getImage().getHeight(null)/2-6, y+getImage().getWidth(null)/2-6,enemy,direction);
+        GameClient.getInstance().getMissiles().add(missile);
+
+        Media sound = new Media(new File("assert/audios/shoot.wav").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+
     }
 
     public void KeyReleased(KeyEvent e) {
