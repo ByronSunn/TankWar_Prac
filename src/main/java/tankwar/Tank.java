@@ -49,25 +49,8 @@ public class Tank {
 
     Image getImage() {
         String prefix = enemy? "e" : "";
-        switch (direction) {
-            case UP:
-                return new ImageIcon("assert/images/"+prefix+"tankU.gif").getImage();
-            case DOWN:
-                return new ImageIcon("assert/images/"+prefix+"tankD.gif").getImage();
-            case LEFT:
-                return new ImageIcon("assert/images/"+prefix+"tankL.gif").getImage();
-            case RIGHT:
-                return new ImageIcon("assert/images/"+prefix+"tankR.gif").getImage();
-            case UPLEFT:
-                return new ImageIcon("assert/images/"+prefix+"tankLU.gif").getImage();
-            case DOWNLEFT:
-                return new ImageIcon("assert/images/"+prefix+"tankLD.gif").getImage();
-            case UPRIGHT:
-                return new ImageIcon("assert/images/"+prefix+"tankRU.gif").getImage();
-            case DOWNRIGHT:
-                return new ImageIcon("assert/images/"+prefix+"tankRD.gif").getImage();
-        }
-        return null;
+        return direction.getImage(prefix+"tank");
+
     }
 
     private boolean up, down, left, right;
@@ -89,16 +72,44 @@ public class Tank {
             case KeyEvent.VK_CONTROL:
                 fire();
                 break;
+            case KeyEvent.VK_A:
+                SuperFire();
+                break;
         }
+    }
+
+    private void SuperFire() {
+        Missile missileU = new Missile(x+getImage().getHeight(null)/2-6, y+getImage().getWidth(null)/2-6,enemy,Direction.UP);
+        GameClient.getInstance().getMissiles().add(missileU);
+        Missile missileD = new Missile(x+getImage().getHeight(null)/2-6, y+getImage().getWidth(null)/2-6,enemy,Direction.DOWN);
+        GameClient.getInstance().getMissiles().add(missileD);
+        Missile missileL = new Missile(x+getImage().getHeight(null)/2-6, y+getImage().getWidth(null)/2-6,enemy,Direction.LEFT);
+        GameClient.getInstance().getMissiles().add(missileL);
+        Missile missileR = new Missile(x+getImage().getHeight(null)/2-6, y+getImage().getWidth(null)/2-6,enemy,Direction.RIGHT);
+        GameClient.getInstance().getMissiles().add(missileR);
+        Missile missileUL = new Missile(x+getImage().getHeight(null)/2-6, y+getImage().getWidth(null)/2-6,enemy,Direction.UPLEFT);
+        GameClient.getInstance().getMissiles().add(missileUL);
+        Missile missileUR = new Missile(x+getImage().getHeight(null)/2-6, y+getImage().getWidth(null)/2-6,enemy,Direction.UPRIGHT);
+        GameClient.getInstance().getMissiles().add(missileUR);
+        Missile missileDL = new Missile(x+getImage().getHeight(null)/2-6, y+getImage().getWidth(null)/2-6,enemy,Direction.DOWNLEFT);
+        GameClient.getInstance().getMissiles().add(missileDL);
+        Missile missileDR = new Missile(x+getImage().getHeight(null)/2-6, y+getImage().getWidth(null)/2-6,enemy,Direction.DOWNRIGHT);
+        GameClient.getInstance().getMissiles().add(missileDR);
+
+        playAudio("assert/audios/supershoot.wav");
+    }
+
+    private void playAudio(String FileName) {
+        Media sound = new Media(new File(FileName).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 
     private void fire() {
         Missile missile = new Missile(x+getImage().getHeight(null)/2-6, y+getImage().getWidth(null)/2-6,enemy,direction);
         GameClient.getInstance().getMissiles().add(missile);
 
-        Media sound = new Media(new File("assert/audios/shoot.wav").toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
+        playAudio("assert/audios/shoot.wav");
 
     }
 

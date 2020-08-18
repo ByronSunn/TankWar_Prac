@@ -22,25 +22,7 @@ public class Missile {
     }
 
     Image getImage() {
-        switch (direction) {
-            case UP:
-                return new ImageIcon("assert/images/missileU.gif").getImage();
-            case DOWN:
-                return new ImageIcon("assert/images/missileD.gif").getImage();
-            case LEFT:
-                return new ImageIcon("assert/images/missileL.gif").getImage();
-            case RIGHT:
-                return new ImageIcon("assert/images/missileR.gif").getImage();
-            case UPLEFT:
-                return new ImageIcon("assert/images/missileLU.gif").getImage();
-            case DOWNLEFT:
-                return new ImageIcon("assert/images/missileLD.gif").getImage();
-            case UPRIGHT:
-                return new ImageIcon("assert/images/missileRU.gif").getImage();
-            case DOWNRIGHT:
-                return new ImageIcon("assert/images/missileRD.gif").getImage();
-        }
-        return null;
+        return direction.getImage("missile");
     }
 
     void move(){
