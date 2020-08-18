@@ -10,6 +10,7 @@ import java.io.File;
 
 public class Tank {
 
+    private int TANK_SPEED = 5;
     private int x;
     private int y;
 
@@ -152,35 +153,8 @@ public class Tank {
 
         if(this.stopped)
             return;
-        switch(this.direction){
-            case UP:
-                y-=5;
-                break;
-            case DOWN:
-                y+=5;
-                break;
-            case LEFT:
-                x-=5;
-                break;
-            case RIGHT:
-                x+=5;
-                break;
-            case UPRIGHT:
-                x+=5;
-                y-=5;
-                break;
-            case DOWNRIGHT:
-                x+=5;
-                y+=5;
-                break;
-            case UPLEFT:
-                x-=5;
-                y-=5;
-                break;
-            case DOWNLEFT:
-                x-=5;
-                y+=5;
-        }
+        x += direction.xFactor * TANK_SPEED;
+        y += direction.yFactor * TANK_SPEED;
     }
 
     public Rectangle getRectangle(){
